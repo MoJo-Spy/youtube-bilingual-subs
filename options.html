@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>YouTube Bilingual Subtitles — Settings</title>
+<style>
+  :root {
+    --fg: #1f2328;
+    --muted: #656d76;
+    --border: #d0d7de;
+    --accent: #1f883d;
+    --accent-hover: #1a7f37;
+    --focus: rgba(9, 105, 218, 0.15);
+    --focus-border: #0969da;
+    --error: #cf222e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+    color: var(--fg);
+    line-height: 1.5;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.subtitle { color: var(--muted); margin: 0 0 24px; }
+  label.field { display: block; margin-top: 16px; font-weight: 500; font-size: 13px; }
+  input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 6px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--fg);
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--focus-border);
+    box-shadow: 0 0 0 3px var(--focus);
+  }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .hint code { background: #eef1f4; padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+  .row { display: flex; gap: 12px; }
+  .row > div { flex: 1; }
+  .actions { margin-top: 24px; display: flex; gap: 8px; align-items: center; }
+  button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    font-family: inherit;
+  }
+  button:hover { background: var(--accent-hover); }
+  button.secondary { background: #f6f8fa; color: var(--fg); border: 1px solid var(--border); }
+  button.secondary:hover { background: #eaeef2; }
+  #status { margin-left: 4px; font-size: 13px; min-height: 18px; }
+  .toggle { display: flex; align-items: center; margin-top: 18px; font-size: 14px; }
+  .toggle input { margin-right: 8px; }
+  .section {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .section h3 { font-size: 14px; margin: 0 0 8px; }
+  .section ul { font-size: 13px; color: var(--muted); padding-left: 20px; line-height: 1.7; margin: 0; }
+  .section code { background: #eef1f4; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>YouTube Bilingual Subtitles</h1>
+  <p class="subtitle">Translate YouTube subtitles using your own OpenAI-compatible model.</p>
+
+  <label class="field" for="baseURL">API Base URL</label>
+  <input type="text" id="baseURL" placeholder="https://api.openai.com/v1">
+  <div class="hint">The OpenAI-compatible endpoint root. Don't include <code>/chat/completions</code>.</div>
+
+  <label class="field" for="apiKey">API Key</label>
+  <input type="password" id="apiKey" placeholder="sk-...">
+
+  <div class="row">
+    <div>
+      <label class="field" for="model">Model</label>
+      <input type="text" id="model" placeholder="gpt-4o-mini">
+    </div>
+    <div>
+      <label class="field" for="targetLang">Target Language</label>
+      <input type="text" id="targetLang" placeholder="Chinese (Simplified)">
+    </div>
+  </div>
+
+  <label class="toggle">
+    <input type="checkbox" id="enabled">
+    Enable translation
+  </label>
+
+  <div class="actions">
+    <button id="save">Save</button>
+    <button id="test" class="secondary">Test connection</button>
+    <span id="status"></span>
+  </div>
+
+  <div class="section">
+    <h3>Tips</h3>
+    <ul>
+      <li>Only videos with subtitles (<code>CC</code>) will be translated — the extension reads the existing subtitle track from YouTube. Turn captions <code>on</code> in the player.</li>
+      <li>After changing settings, reload the YouTube tab for them to take effect.</li>
+      <li>Translations are cached locally per video / model / language — no repeat charges when you rewatch.</li>
+      <li>The extension batches 20 lines per request to the model.</li>
+    </ul>
+  </div>
+
+<script src="options.js"></script>
+</body>
+</html>
