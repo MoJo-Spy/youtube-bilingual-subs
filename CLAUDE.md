@@ -90,13 +90,14 @@ Two-flagship consensus (GPT-5.4 + Gemini-2.5-Pro) locked the following positioni
 
 ## Planned Tech Stack Migration
 
-Current pure-JS no-build stack will migrate to **WXT + TypeScript + Preact + @preact/signals + Tailwind v4**. Full plan lives in `docs/wxt-migration-plan.md` — open that file before any architectural change. Key decisions:
+Current pure-JS no-build stack will migrate to **WXT + TypeScript + Vue 3 (Composition API + `<script setup>`) + Tailwind v4**. Full plan lives in `docs/wxt-migration-plan.md` — open that file before any architectural change. Key decisions:
 
 - **Framework**: WXT (Vite-based, framework-agnostic, best SW HMR). Plasmo and CRXJS rejected (maintenance concerns).
-- **UI library**: Preact + signals + Tailwind v4. Radix Primitives via `preact/compat` alias. Not shadcn/ui (too heavy for a translation tool).
+- **UI library**: Vue 3 SFC + Tailwind v4 via `@wxt-dev/module-vue`. Chosen over Preact+signals because the maintainer is a beginner and Vue has the strongest Chinese-language ecosystem (tutorials, videos, community Q&A). Type-checking uses `vue-tsc` not plain `tsc`.
 - **Design tokens**: defined in `docs/wxt-migration-plan.md` § 4 (light + dark + overlay-always-dark scopes).
 - **Permission narrowing**: `<all_urls>` → `optional_host_permissions` (requested at first save of custom baseURL).
 - **Auditability preservation**: `vite.build.minify = false`, sourcemap enabled, README must include "Build from source" + SHA-256 verification steps.
+- **Project init command**: `pnpm dlx wxt@latest init . --template vue-ts`.
 
 ## When Editing
 
